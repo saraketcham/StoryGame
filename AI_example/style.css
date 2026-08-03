@@ -1,0 +1,244 @@
+/* ---------- Basic reset ---------- */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+  color: #222;
+  background-color: #f2f2f2;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+a {
+  color: #5b2c83;
+}
+
+a:hover,
+a:focus {
+  color: #32164a;
+}
+
+
+/* ---------- Header and navigation ---------- */
+
+.site-header {
+  padding: 2rem;
+  color: white;
+  text-align: center;
+  background-color: #25213b;
+}
+
+.site-header h1 {
+  margin-bottom: 0.25rem;
+}
+
+.tagline {
+  margin-top: 0;
+}
+
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-list a {
+  color: white;
+}
+
+.nav-list button {
+  padding: 0;
+  color: white;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+
+/* ---------- General layout ---------- */
+
+main {
+  width: min(1100px, 92%);
+  margin: 2rem auto;
+}
+
+.content-section,
+.hero,
+.status-panel,
+.game-panel,
+.case-notes {
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.button-link,
+button[type="submit"],
+.choice-button {
+  display: inline-block;
+  padding: 0.75rem 1rem;
+  color: white;
+  font: inherit;
+  text-decoration: none;
+  background-color: #5b2c83;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.button-link:hover,
+button[type="submit"]:hover,
+.choice-button:hover {
+  color: white;
+  background-color: #32164a;
+}
+
+.tip-box {
+  padding: 1rem;
+  background-color: #eee8f4;
+  border-left: 5px solid #5b2c83;
+}
+
+
+/* ---------- Forms ---------- */
+
+form {
+  max-width: 600px;
+}
+
+.form-group,
+fieldset {
+  margin-bottom: 1.25rem;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 0.65rem;
+  font: inherit;
+}
+
+fieldset label,
+.checkbox-row label {
+  display: inline;
+  font-weight: normal;
+}
+
+
+/* ---------- Game ---------- */
+
+.game-layout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr) 220px;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.status-panel,
+.case-notes {
+  position: sticky;
+  top: 1rem;
+}
+
+.status-panel dl {
+  margin: 0;
+}
+
+.status-row {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.status-row dt {
+  font-weight: bold;
+}
+
+.status-row dd {
+  margin: 0;
+}
+
+.game-panel {
+  min-height: 500px;
+}
+
+.choices {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.choice-button {
+  width: 100%;
+  text-align: left;
+}
+
+.message {
+  min-height: 1.5rem;
+  padding: 0.75rem;
+  font-weight: bold;
+  background-color: #fff4cf;
+  border-radius: 6px;
+}
+
+.message:empty {
+  display: none;
+}
+
+
+/* ---------- Footer ---------- */
+
+footer {
+  padding: 1.5rem;
+  color: white;
+  text-align: center;
+  background-color: #25213b;
+}
+
+footer a {
+  color: white;
+}
+
+
+/* ---------- Responsive design ---------- */
+
+@media (max-width: 800px) {
+  .hero,
+  .game-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .status-panel,
+  .case-notes {
+    position: static;
+  }
+}

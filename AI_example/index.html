@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="A branching mystery story game set inside Blackwood Manor."
+  >
+
+  <title>The Mystery of Blackwood Manor</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="site-header">
+    <h1>The Mystery of Blackwood Manor</h1>
+
+    <p class="tagline">
+      Explore the manor, collect evidence, and unlock the truth.
+    </p>
+
+    <nav aria-label="Main navigation">
+      <ul class="nav-list">
+        <li><a href="#about">About the Game</a></li>
+        <li><a href="#instructions">Instructions</a></li>
+        <li><a href="#detective-form">Detective Profile</a></li>
+        <li><a href="game.html">Play</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-heading">
+      <div>
+        <h2 id="hero-heading">A locked room. A missing scientist. One hidden key.</h2>
+
+        <p>
+          Dr. Rowan Blackwood disappeared during a storm. The police searched
+          the manor, but they never opened the locked laboratory.
+        </p>
+
+        <p>
+          You have been invited to investigate before the manor is sold.
+          What you discover depends on the choices you make.
+        </p>
+
+        <a class="button-link" href="game.html">Begin the Investigation</a>
+      </div>
+
+      <figure>
+        <img
+          src="images/mansion.png"
+          alt="An old mansion at night during a storm"
+        >
+
+        <figcaption>
+          Blackwood Manor has been empty for almost ten years.
+        </figcaption>
+      </figure>
+    </section>
+
+    <section id="about" class="content-section">
+      <h2>About the Game</h2>
+
+      <p>
+        <strong>The Mystery of Blackwood Manor</strong> is a branching
+        story game. Your choices change your health, inventory, and ending.
+      </p>
+
+      <h3>Game Features</h3>
+
+      <ul>
+        <li>Multiple locations to investigate</li>
+        <li>A health system that changes after dangerous choices</li>
+        <li>An inventory item that can be collected</li>
+        <li>A locked door that requires the correct item</li>
+        <li>More than one possible ending</li>
+      </ul>
+    </section>
+
+    <section id="instructions" class="content-section">
+      <h2>How to Play</h2>
+
+      <ol>
+        <li>Read the description of the current scene.</li>
+        <li>Select one of the available choices.</li>
+        <li>Watch your health and inventory.</li>
+        <li>Search the manor for the brass key.</li>
+        <li>Use the key to unlock the laboratory.</li>
+      </ol>
+
+      <aside class="tip-box">
+        <h3>Detective’s Tip</h3>
+
+        <p>
+          Some choices cannot be reversed. Investigate carefully before
+          entering dangerous areas.
+        </p>
+      </aside>
+    </section>
+
+    <section id="detective-form" class="content-section">
+      <h2>Create Your Detective Profile</h2>
+
+      <form action="game.html" method="get">
+        <div class="form-group">
+          <label for="detective-name">Detective name:</label>
+
+          <input
+            type="text"
+            id="detective-name"
+            name="detectiveName"
+            required
+          >
+        </div>
+
+        <fieldset>
+          <legend>Choose your specialty:</legend>
+
+          <div>
+            <input
+              type="radio"
+              id="observation"
+              name="specialty"
+              value="observation"
+              checked
+            >
+
+            <label for="observation">Observation</label>
+          </div>
+
+          <div>
+            <input
+              type="radio"
+              id="courage"
+              name="specialty"
+              value="courage"
+            >
+
+            <label for="courage">Courage</label>
+          </div>
+
+          <div>
+            <input
+              type="radio"
+              id="logic"
+              name="specialty"
+              value="logic"
+            >
+
+            <label for="logic">Logic</label>
+          </div>
+        </fieldset>
+
+        <div class="form-group">
+          <label for="difficulty">Choose a difficulty:</label>
+
+          <select id="difficulty" name="difficulty">
+            <option value="easy">Apprentice</option>
+            <option value="normal" selected>Detective</option>
+            <option value="hard">Master Investigator</option>
+          </select>
+        </div>
+
+        <div class="form-group checkbox-row">
+          <input
+            type="checkbox"
+            id="sound"
+            name="sound"
+          >
+
+          <label for="sound">Enable atmospheric sound</label>
+        </div>
+
+        <button type="submit">Create Profile and Play</button>
+      </form>
+    </section>
+
+    <section class="content-section">
+      <h2>Credits and Resources</h2>
+
+      <p>
+        This game was created as a student web-development project.
+        Background research came from
+        <a
+          href="https://en.wikipedia.org/wiki/Detective_fiction"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          an overview of detective fiction
+        </a>.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      Created by Student Name for Computer Science.
+    </p>
+
+    <p>
+      <a href="#top">Return to the top</a>
+    </p>
+  </footer>
+</body>
+</html>

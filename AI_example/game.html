@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Play | The Mystery of Blackwood Manor</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <header class="site-header">
+    <h1>The Mystery of Blackwood Manor</h1>
+
+    <nav aria-label="Game navigation">
+      <ul class="nav-list">
+        <li><a href="index.html">Home</a></li>
+        <li><button id="restart-button" type="button">Restart Game</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="game-layout">
+    <section class="status-panel" aria-labelledby="status-heading">
+      <h2 id="status-heading">Detective Status</h2>
+
+      <dl>
+        <div class="status-row">
+          <dt>Name</dt>
+          <dd id="player-name">Detective</dd>
+        </div>
+
+        <div class="status-row">
+          <dt>Health</dt>
+          <dd><span id="health-display">100</span>/100</dd>
+        </div>
+
+        <div class="status-row">
+          <dt>Current Location</dt>
+          <dd id="location-display">Front Gate</dd>
+        </div>
+
+        <div class="status-row">
+          <dt>Inventory</dt>
+          <dd id="inventory-display">Empty</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section
+      id="game-container"
+      class="game-panel"
+      aria-labelledby="scene-title"
+    >
+      <p id="message-display" class="message" aria-live="polite"></p>
+
+      <figure>
+        <img
+          id="scene-image"
+          src="images/mansion.png"
+          alt="Blackwood Manor during a storm"
+        >
+      </figure>
+
+      <h2 id="scene-title">Front Gate</h2>
+
+      <p id="scene-text">
+        The iron gate stands open. Blackwood Manor waits at the end of the path.
+      </p>
+
+      <div
+        id="choices-container"
+        class="choices"
+        aria-label="Story choices"
+      ></div>
+    </section>
+
+    <aside class="case-notes" aria-labelledby="notes-heading">
+      <h2 id="notes-heading">Case Notes</h2>
+
+      <ul id="notes-list">
+        <li>Dr. Blackwood disappeared ten years ago.</li>
+        <li>The laboratory door was never opened.</li>
+      </ul>
+    </aside>
+  </main>
+
+  <footer>
+    <p>Make careful choices. Some decisions have consequences.</p>
+  </footer>
+</body>
+</html>
