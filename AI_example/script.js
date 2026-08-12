@@ -3,9 +3,12 @@
 // These variables remember what has happened.
 // --------------------------------------------------
 
-let health = 100;
+let health = 40;
 let inventory = [];
-let currentScene = "frontGate";
+let currentScene = "dayOne";
+let powerOn = true;
+let openingSceneLocked = true;
+let powerTimer;
 let gameOver = false;
 
 
@@ -29,312 +32,344 @@ const notesList = document.querySelector("#notes-list");
 const restartButton = document.querySelector("#restart-button");
 
 
+function updateTheme() {
+  document.body.classList.remove("dark-mode");
+  document.body.classList.remove("light-mode");
+
+  if (powerOn) {
+    document.body.classList.add("light-mode");
+  } else {
+    document.body.classList.add("dark-mode");
+  }
+}
+
+
+function togglePower() {
+  clearTimeout(powerTimer);
+  powerTimer = undefined;
+  powerOn = !powerOn;
+
+  updateTheme();
+  updateScene(currentScene);
+}
+
+
+function endOpeningLock() {
+  powerTimer = undefined;
+  powerOn = false;
+  openingSceneLocked = false;
+
+  updateTheme();
+  updateScene(currentScene);
+}
+
+
 // --------------------------------------------------
 // 3. STORY DATA
 // Each scene contains its text and possible choices.
 // --------------------------------------------------
 
 const scenes = {
-  frontGate: {
-    title: "Front Gate",
+  dayOne: {
+    title: "Day One: The Laboratory",
 
-    text: `
-      The iron gate creaks in the wind. Ahead, the front door of
-      Blackwood Manor hangs partly open. A narrow path also leads
-      around the side of the house.
+    lightText: `
+      You are working in the laboratory, preparing your mice specimen for a test run simulating landing on the planet of Mars. One or two mice quietly climb out of the box, but you don’t mind too much, Miles will be able to catch them, anyways he is both emotional support cat and also spare mouse hunter. You grab the pipette, and prepare the solution that will help feed the mice for their journey to the surface of Mars. Suddenly, the lights go out.  The ship sounds slowly all turn off in the rooms around you. There are small guide lights illuminating the doorways and hallways. Where should you do?
     `,
 
-    image: "images/mansion.png",
+    darkText: `
+      The laboratory is dark except for the small guide lights near the doorways. You hear mice moving somewhere nearby as you prepare the solution for their journey to Mars. Where do you go to explore?
+    `,
 
-    alt: "Blackwood Manor during a storm",
+    image: "images/lab.jpeg",
 
-    choices: [
+    alt: "Picture of a laboratory",
+
+ choices: [
       {
-        text: "Enter through the front door",
-        nextScene: "entranceHall"
+        darkText: "Go right",
+        lightText: "Go to the cafeteria",
+        nextScene: "cafeteria"
       },
       {
-        text: "Follow the path to the garden",
-        nextScene: "garden"
-      }
+        darkText: "Go down",
+        lightText: "Go to the engine room",
+        nextScene: "engineRoom"
+      },
+     
     ]
   },
 
-  entranceHall: {
-    title: "Entrance Hall",
+  cafeteria: {
+    title: "The cafeteria",
 
     text: `
-      Dust covers the floor. A staircase leads upward, and a dark
-      hallway stretches toward the kitchen. Scratches on the floor
-      suggest that something heavy was dragged toward the stairs.
+      s you go into the room, you are distracted by the smell of cupcakes that you left baking in the oven.   -YAAAARGGHHH- you jump back in surprise, cat scratches down your leg. You accidentally stepped on Miles as he laid in the cafeteria entry. Ouch
     `,
 
-    image: "images/mansion.png",
+    image: "images/cafeteria.jpeg",
 
-    alt: "A dark entrance hall inside the manor",
-
-    choices: [
-      {
-        text: "Investigate the staircase",
-        nextScene: "staircase"
-      },
-      {
-        text: "Search the kitchen",
-        nextScene: "kitchen"
-      },
-      {
-        text: "Return to the front gate",
-        nextScene: "frontGate"
-      }
-    ]
-  },
-
-  garden: {
-    title: "Overgrown Garden",
-
-    text: `
-      The garden has become a maze of weeds. Near a broken statue,
-      something metallic shines beneath a pile of leaves.
-    `,
-
-    image: "images/mansion.png",
-
-    alt: "An overgrown garden beside the manor",
-
-    choices: [
-      {
-        text: "Search beneath the leaves",
-        action: pickUpKey,
-        nextScene: "gardenAfterKey"
-      },
-      {
-        text: "Climb through a broken window",
-        action: function () {
-          updateHealth(-25);
-        },
-        nextScene: "kitchen"
-      },
-      {
-        text: "Return to the front gate",
-        nextScene: "frontGate"
-      }
-    ]
-  },
-
-  gardenAfterKey: {
-    title: "Overgrown Garden",
-
-    text: `
-      You find a small brass key engraved with the letter B.
-      It may open something inside the manor.
-    `,
-
-    image: "images/mansion.png",
-
-    alt: "A brass key found in an overgrown garden",
-
-    choices: [
-      {
-        text: "Enter the manor",
-        nextScene: "entranceHall"
-      }
-    ]
-  },
-
-  kitchen: {
-    title: "Abandoned Kitchen",
-
-    text: `
-      Rusted cookware hangs above a long counter. A cabinet door
-      swings open and closed. Behind it, you hear a faint scratching sound.
-    `,
-
-    image: "images/mansion.png",
-
-    alt: "An abandoned kitchen with old cabinets",
-
-    choices: [
-      {
-        text: "Open the cabinet",
-        action: function () {
-          updateHealth(-15);
-          addCaseNote("A frightened animal was trapped inside the cabinet.");
-        },
-        nextScene: "kitchenAfterCabinet"
-      },
-      {
-        text: "Search the desk",
-        action: function () {
-          addCaseNote(
-            "A note says: 'The truth is sealed inside the laboratory.'"
-          );
-        },
-        nextScene: "kitchenAfterDesk"
-      },
-      {
-        text: "Return to the entrance hall",
-        nextScene: "entranceHall"
-      }
-    ]
-  },
-
-  kitchenAfterCabinet: {
-    title: "Abandoned Kitchen",
-
-    text: `
-      A frightened raccoon leaps from the cabinet and scratches your arm.
-      You lose 15 health, but the animal escapes through the window.
-    `,
-
-    image: "images/mansion.png",
-
-    alt: "An open cabinet in an abandoned kitchen",
-
-    choices: [
-      {
-        text: "Search the desk",
-        nextScene: "kitchenAfterDesk"
-      },
-      {
-        text: "Return to the entrance hall",
-        nextScene: "entranceHall"
-      }
-    ]
-  },
-
-  kitchenAfterDesk: {
-    title: "Abandoned Kitchen",
-
-    text: `
-      Inside the desk, you find Dr. Blackwood's final note:
-      "The truth is sealed inside the laboratory."
-    `,
-
-    image: "images/mansion.png",
-
-    alt: "An old handwritten note on a kitchen desk",
-
-    choices: [
-      {
-        text: "Return to the entrance hall",
-        nextScene: "entranceHall"
-      }
-    ]
-  },
-
-  staircase: {
-    title: "Broken Staircase",
-
-    text: `
-      Halfway upstairs, a rotten step collapses beneath you.
-      You catch the railing, but injure your leg.
-    `,
-
-    image: "images/mansion.png",
-
-    alt: "A damaged staircase inside the manor",
+    alt: "Picture of a cat scratching a person",
 
     onEnter: function () {
-      updateHealth(-20);
+      updateHealth(-10);
     },
 
-    choices: [
+ choices: [
       {
-        text: "Continue upstairs",
-        nextScene: "laboratoryDoor"
+        darkText: "Go right",
+        lightText: "Go to the closet ",
+        nextScene: "closet"
       },
       {
-        text: "Return to the entrance hall",
-        nextScene: "entranceHall"
-      }
-    ]
-  },
-
-  laboratoryDoor: {
-    title: "Locked Laboratory",
-
-    text: `
-      At the end of the upstairs corridor stands a steel door.
-      Its lock contains a small brass keyhole.
-    `,
-
-    image: "images/mansion.png",
-
-    alt: "A locked steel laboratory door",
-
-    choices: [
-      {
-        text: "Try to unlock the laboratory",
-        action: unlockDoor
+        darkText: "Go down",
+        lightText: "Go to the control room",
+        nextScene: "controlRoom"
       },
-      {
-        text: "Return downstairs",
-        nextScene: "entranceHall"
-      }
+       {
+        darkText: "Go left",
+        lightText: "Go to the lab",
+        nextScene: "laboratory"
+      },
+     
     ]
   },
 
   laboratory: {
-    title: "The Hidden Laboratory",
+    title: "The laboratory",
 
     text: `
-      The brass key turns. Inside, you find Dr. Blackwood's unfinished
-      machine and a recorded confession. He did not disappear—he staged
-      the mystery after realizing that his invention was too dangerous.
-      You have solved the case.
-    `,
+      As you go back into the room, you realize that all the mice you had in the box have now escaped. Rats! That’s going to be a lot of work to capture them all!     `,
 
-    image: "images/mansion.png",
+    image: "images/lab.jpeg",
 
-    alt: "A secret laboratory filled with scientific equipment",
+    alt: "Picture of mice running around the laboratory",
 
-    choices: [
+ choices: [
       {
-        text: "Finish the game",
-        action: winGame
-      }
+        darkText: "Go right",
+        lightText: "Go to the cafeteria ",
+        nextScene: "cafeteria"
+      },
+      {
+        darkText: "Go down",
+        lightText: "Go to the engine room",
+        nextScene: "engineRoom"
+      },
+     
     ]
   },
 
-  ending: {
-    title: "Case Closed",
+  engineRoom: {
+    title: "The engine room",
 
     text: `
-      You leave Blackwood Manor with the evidence. The mystery that
-      remained unsolved for ten years has finally been explained.
+      As you go into the room, you hear the motors of the engines going. This is a good sign, this means that the ship is working fine, but the lights and machines have been turned off. `,
+    image: "images/engineRoom.jpg",
+
+    alt: "Picture of an engine room",
+
+ choices: [
+      {
+        darkText: "Go up",
+        lightText: "Go to the laboratory", 
+        nextScene: "laboratory"
+      },
+      {
+        darkText: "Go right",
+        lightText: "Go to the control room",
+        nextScene: "controlRoom"
+      },
+     
+    ]
+  },
+
+  controlRoom: {
+    title: "The control room",
+
+    text: `
+      As you go into the room, you see a soft light illuminating a single switch. It says “master switch” and it is currently turned off. What do you do?  (Turn it on or leave it off)
+      After the lights are up. As you go into the room, you glance at the master switch. For some reason you are really tempted to flip it again. What do you do? (Turn it off or leave it on)
+      `,
+
+    lightText: `
+      After the lights are up. As you go into the room, you glance at the master switch. For some reason you are really tempted to flip it again. What do you do?
     `,
 
-    image: "images/mansion.png",
+    darkText: `
+      The control room is almost completely dark. A small guide light shines on the master switch, and the silent console waits in front of you. What do you do?
+    `,
+    image: "images/controlRoom.jpeg",
 
-    alt: "Blackwood Manor at sunrise",
+    alt: "Picture of an engine room",
 
-    choices: [
+ choices: [
       {
-        text: "Play again",
-        action: restartGame
-      }
+        darkText: "Turn the power on",
+        lightText: "Turn the power on",
+        action: function () {
+          if (powerOn) {
+            showMessage("The power is already on.");
+            return;
+          }
+
+          togglePower();
+        }
+      },
+      {
+        darkText: "Turn the power off",
+        lightText: "Turn the power off",
+        action: function () {
+          if (!powerOn) {
+            showMessage("The power is already off.");
+            return;
+          }
+
+          togglePower();
+        }
+      },
+      {
+        darkText: "Go up",
+        lightText: "Go to the laboratory", 
+        nextScene: "laboratory"
+      },
+      {
+        darkText: "Go right",
+        lightText: "Go to the camera room",
+        nextScene: "cameraRoom"
+      },
+     
     ]
+  },
+
+  cameraRoom: {
+    title: "The camera room",
+
+    text: `
+      As you go into the room, you see black computer monitors. If the ship was working, you could watch the footage and see what happened. Shucks. Better keep going
+      `,
+
+    lightText: `
+      After the lights are up. As you go into the room, the comforting whir of computers greets you. You flip through the footage of the different rooms. A clip in the control room catches your eye... you see Miles walking across the keyboard. Suddenly, he purrs and rolls onto his back, scratching his back directly on the master switch! Then the footage cuts to black. Miles!! This whole thing was from him? What should you do?
+    `,
+
+    image: "images/cameraRoom.png",
+
+    alt: "Picture of an engine room",
+
+    lightChoices: [
+      {
+        text: "Leave it, it's okay if it happens again.",
+        action: function () {
+          gameOver = true;
+          showEnding("leaveMilesEnding");
+        }
+      },
+      {
+        text: "Eject Miles, and take a risk with the isolation.",
+        action: function () {
+          gameOver = true;
+          showEnding("ejectMilesEnding");
+        }
+      },
+      {
+        text: "Install a cover for the switch.",
+        action: function () {
+          gameOver = true;
+          showEnding("coverSwitchEnding");
+        }
+      }
+    ],
+
+ choices: [
+
+      {
+        darkText: "Go up",
+        lightText: "Go to the closet", 
+        nextScene: "closet"
+      },
+      {
+        darkText: "Go left",
+        lightText: "Go to the control room",
+        nextScene: "controlRoom"
+      },
+     
+    ]
+  },
+
+  leaveMilesEnding: {
+    title: "Ending: Leave Miles",
+
+    text: `
+      You decide to just leave it. If this happens again, you know what to do. Besides it was an honest mistake... I mean it was an honest mistake, right...? As you head back to the lab to continue your research, you hear the echoes of a laugh. It sounds vaguely feline.
+    `,
+
+    image: "images/spaceship2.png",
+    alt: "A dark spaceship hallway",
+    choices: []
+  },
+
+  ejectMilesEnding: {
+    title: "Ending: Eject Miles",
+
+    text: `
+      You decide to eject Miles. This can't happen again. Besides, as you think about the issues you've had throughout the mission, you start to notice a pattern. The extra mice on the supply probes. The menu for the food, being all so fish heavy. The communication back home being so spotty, messages with your complaints somehow being deleted from the servers.... Maybe Miles was actually trying to sabotage the mission. Better safe than sorry.
+    `,
+
+    image: "images/mars.jpg",
+    alt: "A spaceship control panel",
+    choices: []
+  },
+
+  coverSwitchEnding: {
+    title: "Ending: Cover the Switch",
+
+    text: `
+      You decide to install a cover. You add a flap that you're pretty sure a cat can't open, just to be safe. You sigh, and head back to the lab. Time to get back to work.
+    `,
+
+    image: "images/mars.jpg",
+    alt: "A covered control switch",
+    choices: []
   },
 
   lose: {
-    title: "Investigation Failed",
+    title: "Game Over",
 
     text: `
-      Your injuries are too serious to continue. You escape the manor,
-      but the laboratory remains locked and the mystery remains unsolved.
+      Your energy and morale is sapped... with multiple scratches across your whole body, really what is the point? You lay down on the ground to nurse your wounds. Haha, it's almost like Miles is trying to sabotage the mission. Ow, your body hurts all over. Minutes go by, and you start to think more about the scratches.... What if Miles WAS sabotaging the mission? It was a really quick turn around from the "funding issues" to the proposal to include him on the mission.... As you lay on the floor, you go back through all the issues you've had, pre-mission and during the mission.... The extra mice on the supply probes. The menu for the food, being all so fish heavy. The communication back home being so spotty, messages with your complaints somehow being deleted from the servers.... As your vision fades to black, you see a furry silhouette over your body. Is this the end?? Your last thought is sadness, that the Mars expeditions missions will never be funded without your research.
     `,
 
+    image: "images/evilcat.png",
+    alt: "A character lying injured on the spaceship floor",
+    choices: []
+  },
+
+   closet: {
+    title: "The closet",
+
+    text: `
+You open the closet. You notice that the toilet paper is running low. What?? Uh oh, you wonder what you will do when you run out. Does amazon deliver this far???      `,
     image: "images/mansion.png",
 
-    alt: "Blackwood Manor disappearing into the fog",
+    alt: "Picture of an engine room",
 
-    choices: [
+ choices: [
+
       {
-        text: "Try again",
-        action: restartGame
-      }
+        darkText: "Go left",
+        lightText: "Go to the cafeteria", 
+        nextScene: "cafeteria"
+      },
+      {
+        darkText: "Go down",
+        lightText: "Go to the camera room",
+        nextScene: "cameraRoom"
+      },
+     
     ]
-  }
+  },
+
 };
 
 
@@ -360,7 +395,11 @@ function updateScene(sceneName) {
   clearMessage();
 
   sceneTitle.textContent = scene.title;
-  sceneText.textContent = scene.text.trim();
+  const sceneDescription = powerOn
+    ? scene.lightText || scene.text
+    : scene.darkText || scene.text;
+
+  sceneText.textContent = sceneDescription.trim();
   sceneImage.src = scene.image;
   sceneImage.alt = scene.alt;
   locationDisplay.textContent = scene.title;
@@ -375,12 +414,23 @@ function updateScene(sceneName) {
     }
   }
 
-  scene.choices.forEach(function (choice) {
+  const availableChoices = powerOn && scene.lightChoices
+    ? scene.lightChoices
+    : scene.choices;
+
+  if (sceneName === "dayOne" && openingSceneLocked) {
+    showMessage("The lights are still on. It's a normal day, or is it?");
+    return;
+  }
+
+  availableChoices.forEach(function (choice) {
     const button = document.createElement("button");
 
     button.type = "button";
     button.classList.add("choice-button");
-    button.textContent = choice.text;
+    button.textContent = powerOn
+      ? choice.lightText || choice.text
+      : choice.darkText || choice.text;
 
     button.addEventListener("click", function () {
       handleChoice(choice);
@@ -419,8 +469,8 @@ function handleChoice(choice) {
 function updateHealth(amount) {
   health = health + amount;
 
-  if (health > 100) {
-    health = 100;
+  if (health > 40) {
+    health = 40;
   }
 
   if (health < 0) {
@@ -564,20 +614,27 @@ function showEnding(sceneName) {
 // --------------------------------------------------
 
 function restartGame() {
-  health = 100;
+  health = 40;
   inventory = [];
-  currentScene = "frontGate";
+  currentScene = "dayOne";
+  powerOn = true;
+  openingSceneLocked = true;
   gameOver = false;
+
+  clearTimeout(powerTimer);
 
   healthDisplay.textContent = health;
   updateInventoryDisplay();
 
   notesList.innerHTML = `
-    <li>Dr. Blackwood disappeared ten years ago.</li>
-    <li>The laboratory door was never opened.</li>
+    <li>Your mission was funded by NASA's Planetary Exploration Team</li>
+    <li>You are trying to get the lab mice to survive various challenges</li>
+    <li>This is one of several mishaps already</li>
   `;
 
-  updateScene("frontGate");
+  updateScene("dayOne");
+  updateTheme();
+  powerTimer = setTimeout(endOpeningLock, 10000);
 }
 
 
@@ -604,4 +661,6 @@ restartButton.addEventListener("click", restartGame);
 
 loadPlayerProfile();
 updateInventoryDisplay();
+updateTheme();
 updateScene(currentScene);
+powerTimer = setTimeout(endOpeningLock, 10000);
