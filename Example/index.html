@@ -28,9 +28,7 @@
 
     <nav aria-label="Main navigation">
       <ul class="nav-list">
-        <li><a href="#about">About the Game</a></li>
         <li><a href="#instructions">Instructions</a></li>
-        <li><a href="#detective-form">Detective Profile</a></li>
         <li><a href="game.html">Play</a></li>
       </ul>
     </nav>
@@ -64,28 +62,6 @@
       </figure>
     </section>
 
-    <section id="about" class="content-section">
-      <h2>About the Game</h2>
-
-      <p>
-        <strong>Mystery out in space </strong> is a branching
-        story game. Your choices change your health, inventory, and ending.
-    
-
-
-      <h3>Game Features</h3>
-
-      <ul>
-        <li>Multiple locations to investigate</li>
-        <li>A health system that changes after dangerous choices</li>
-        <li>A status item - can you restore power? </li>
-        <li>A "locked door" - you can't check the cameras before you restore power</li>
-        <li>More than one possible ending</li>
-      </ul>
-   
-    </section>
-
-
 
     <section id="instructions" class="content-section">
       <h2>How to Play</h2>
@@ -93,7 +69,7 @@
       <ol>
         <li>Read the description of the current scene.</li>
         <li>Select one of the available choices.</li>
-        <li>Watch your health and inventory.</li>
+        <li>Watch your health!</li>
         <li>Search the spaceship for the power switch.</li>
         <li>Restore the power to view the security footage.</li>
       </ol>
@@ -102,102 +78,18 @@
         <h3>Detective’s Tip</h3>
 
         <p>
-          Some choices cannot be reversed. Investigate carefully before
-          entering dangerous areas.
+          Some locations contain hidden dangers. Keep track of which locations are safe for you to enter
         </p>
+
+        <a class="button-link" href="game.html">Begin the Investigation</a>
+
       </aside>
-    </section>
-
-    <section id="detective-form" class="content-section">
-      <h2>Create Your Detective Profile</h2>
-
-      <form action="game.html" method="get">
-        <div class="form-group">
-          <label for="detective-name">Detective name:</label>
-
-          <input
-            type="text"
-            id="detective-name"
-            name="detectiveName"
-            required
-          >
-        </div>
-
-        <fieldset>
-          <legend>Choose your specialty:</legend>
-
-          <div>
-            <input
-              type="radio"
-              id="observation"
-              name="specialty"
-              value="observation"
-              checked
-            >
-
-            <label for="observation">Observation</label>
-          </div>
-
-          <div>
-            <input
-              type="radio"
-              id="courage"
-              name="specialty"
-              value="courage"
-            >
-
-            <label for="courage">Courage</label>
-          </div>
-
-          <div>
-            <input
-              type="radio"
-              id="logic"
-              name="specialty"
-              value="logic"
-            >
-
-            <label for="logic">Logic</label>
-          </div>
-        </fieldset>
-
-        <div class="form-group">
-          <label for="difficulty">Choose a difficulty:</label>
-
-          <select id="difficulty" name="difficulty">
-            <option value="easy">Apprentice</option>
-            <option value="normal" selected>Detective</option>
-            <option value="hard">Master Investigator</option>
-          </select>
-        </div>
-
-        <div class="form-group checkbox-row">
-          <input
-            type="checkbox"
-            id="sound"
-            name="sound"
-          >
-
-          <label for="sound">Enable music</label>
-        </div>
-
-        <button type="submit">Create Profile and Play</button>
-      </form>
-    </section>
-
-    <section class="content-section">
-      <h2>Credits and Resources</h2>
-
-      <p>
-        This game was created as a student web-development project model.
-     
-      </p>
     </section>
   </main>
 
   <footer>
     <p>
-      Created by Sara Ketcham for the Computer Science Academy Project #1.
+      Sample for the Computer Science Academy, Fall Project #1.
     </p>
 
     <p>

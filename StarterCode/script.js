@@ -4,7 +4,7 @@
 // Create a variable for the current location
 // Create an object that holds the repeatable text for each location
 // --------------------------------------------------
-let currentScene = "entrance";
+let currentScene = "backyard";
 
 const scenes = {
   backyard: {
@@ -15,12 +15,30 @@ const scenes = {
       {
         text: "Ask about the dog",
         // add an action here related to inventory
-        nextScene: "kitchen"
+        nextScene: "entrance"
       },
          {
         text: "Ask about the neighbor",
         // add an action here related to inventory
-        nextScene: "front door"
+        nextScene: "hallway"
+      }
+    ]
+  },
+
+    entrance: {
+    title: "Location: Entrance",
+    interviewee: "Interviewee:Neighbor",
+    text: "well what I remember...",
+    choices: [
+      {
+        text: "Ask about the dog",
+        // add an action here related to inventory
+        nextScene: "backyard"
+      },
+         {
+        text: "Ask about the neighbor",
+        // add an action here related to inventory
+        nextScene: "hallway"
       }
     ]
   },
@@ -30,9 +48,9 @@ const scenes = {
     text: "The hallway is dark and silent.",
     choices: [
       {
-        text: "Return outside",
+        text: "backyard",
         // add an action here related to health
-        nextScene: "entrance"
+        nextScene: "lockedDoor"
       }
     ]
   },
@@ -53,7 +71,6 @@ const scenes = {
 // --------------------------------------------------
 // UPDATE SCNES
 // Create a function that updates the scene, inserting the title, text, choices, makes each choice a button
-// Create an object that holds the repeatable text for each location
 // --------------------------------------------------
 
 const sceneTitle = document.querySelector("#scene-title");
@@ -98,31 +115,33 @@ updateScene(currentScene);
 
 // --------------------------------------------------
 // HEALTH
-// Create a variable for health
-// Display current health
-// Create a function to update health 
 // --------------------------------------------------
+
+// Create a variable for health
 let health = 100;
 
+// Display current health
 const healthDisplay = document.querySelector("#health-display");
 
+// Create a function to update health 
 function updateHealth(amount) {
-  // Change the health variable.
-
-  // Update the number shown on the page.
-
-  // Check whether health has reached zero.
-
-
+  health += amount;
+  healthDisplay.textContent = health;
 }
+
+updateHealth(0);
 
 // --------------------------------------------------
 // INVENTORY
-// Create a variable for inventory
-// Display current inverntory
-// Create a function to update inventory 
 // --------------------------------------------------
+
+// Create a variable for inventory
 let inventory = [];
+
+// Display current inverntory
+const inventoryDisplay = document.querySelector("#inventory-display");
+
+// Create a function to update inventory 
 function pickUpItem(itemName) {
     // Add itemName to the inventory array
     // Show the updated inventory on the page
@@ -132,8 +151,9 @@ function pickUpItem(itemName) {
 
 // --------------------------------------------------
 // OPEN A DOOR
-// Create a function that checks if the inventory contains on item and if so shows the win condition scene.
 // --------------------------------------------------
+
+// Create a function that checks if the inventory contains on item and if so shows the win condition scene.
 function unlockDoor() {
   if (inventory.includes("brass key")) {
     updateScene("laboratory");
