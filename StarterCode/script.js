@@ -25,7 +25,7 @@ const scenes = {
     ]
   },
 
-    entrance: {
+  entrance: {
     title: "Location: Entrance",
     interviewee: "Interviewee:Neighbor",
     text: "well what I remember...",
