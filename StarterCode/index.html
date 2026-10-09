@@ -32,7 +32,7 @@
   
 
     <section>
-
+        <img src="images/Screenshot 2026-10-09 at 10.19.48 AM.png" alt="" width="200">
         <p>It was a beautiful <strong>spring</strong> day in the town of NicePlace, and everyone was really excited for Darcie's second birthday</p>
 
         <p>The guest list was enormous, everyone couldn't wait to come party at the playground. The guests included...</p>
@@ -57,7 +57,36 @@
             <li>Find the missing cake and save the day</li>
         </ol>
 
-        <a href="game.html">I'm ready to start</a>
+
+        <form action="game.html">
+            <p>Who do you want to play as?</p>
+
+                <input type="radio" id="o1" name="character" value="mom">
+                <label for="o1">The mom</label>
+            <br> 
+                <input type="radio" id="o2" name="character" value="dad">
+                <label for="o2">The dad</label>
+           <br>
+            
+            <input type="radio" id="o3" name="character" value="toddler">
+            <label for="o3">The toddler</label>
+            <br>
+            <label for="difficulty">Select your difficulty</label>
+            <select name="difficulty" id="difficulty">
+                <option value="hard">hard</option>
+                <option value="med">medium</option>
+                <option value="easy">easy</option>
+            </select>
+            <br>
+            <label for="age">What is your age?</label>  
+            <input type="number" name="age" id="age" placeholder="5">   
+            <br>
+            <label for="donation">Add an optional donation to play</label>  
+            <input type="number" name="donation" id="donation" placeholder="$500"> 
+
+            <input type="submit" value="Start the game">
+
+        </form>
 
 
     </section>

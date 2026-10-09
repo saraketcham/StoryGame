@@ -9,25 +9,34 @@ let currentScene = "backyard";
 const scenes = {
   backyard: {
     title: "Location: Backyard",
-    interviewee: "Interviewee:Grandma",
+    character: "Interviewee:Grandma",
     text: "Text: well what I remember happening is that Darcie went inside to play with her pretend kitchen, I heard her neighbor mention he was really hungry, and the dog ran around really quickly",
     choices: [
       {
-        text: "Ask about the dog",
-        // add an action here related to inventory
+        text: "Chase after the dog (-10 HP)",
+        action: function () {
+          updateHealth(-10);
+        },
         nextScene: "entrance"
       },
          {
         text: "Ask about the neighbor",
         // add an action here related to inventory
         nextScene: "hallway"
+        },
+        {
+          text: "Pick up the brass key",
+          action: function () {
+            pickUpItem("brass key");
+          },
+          nextScene: "hallway"
       }
     ]
   },
 
   entrance: {
     title: "Location: Entrance",
-    interviewee: "Interviewee:Neighbor",
+    character: "Interviewee:Neighbor",
     text: "well what I remember...",
     choices: [
       {
@@ -62,9 +71,15 @@ const scenes = {
       {
         text: "Try to open it",
         // add an action here related to opening the door
-        nextScene: "entrance"
+        action: unlockDoor
       }
     ]
+  },
+
+   solution: {
+    title: "The solution",
+    text: "You solved the mystery!",
+    
   }
 };
 
@@ -76,7 +91,7 @@ const scenes = {
 const sceneTitle = document.querySelector("#scene-title");
 const sceneText = document.querySelector("#scene-text");
 const choicesContainer = document.querySelector("#choices-container");
-const intervieweeName = document.querySelector("#interviewee-name");
+const characterName = document.querySelector("#character-name");
 
 
 function updateScene(sceneName) {
@@ -87,7 +102,7 @@ function updateScene(sceneName) {
 
   sceneTitle.textContent = scene.title;
   sceneText.textContent = scene.text;
-  intervieweeName.textContent = scene.interviewee;
+  characterName.textContent = scene.character;
 
   choicesContainer.innerHTML = "";
 
@@ -156,7 +171,7 @@ function pickUpItem(itemName) {
 // Create a function that checks if the inventory contains on item and if so shows the win condition scene.
 function unlockDoor() {
   if (inventory.includes("brass key")) {
-    updateScene("laboratory");
+    updateScene("solution");
   } else {
     messageDisplay.textContent = "The door is locked.";
   }
