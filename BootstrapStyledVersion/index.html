@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About the game</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body >
+    <header >
+        <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html">Blackout</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="about.html">About the creator</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="game.html">Play the game</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true">Pricing</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    </header>
+
+    <main>
+        <div class="container">
+        <h1 class="heading"  > The mystery of the blackout</h1>
+        <h3 class="subheading" > Can you restore power and save the mission? </h3>
+        </div>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <img  class="rounded mx-auto d-block" src="images/spaceship.png" alt="spaceship" width="350">
+                </div>
+                <div class="col">
+                     <p >
+          You are working in the laboratory, preparing your mice specimen for a test run simulating landing on the planet of Mars. One or two mice quietly climb out of the box, but you don’t mind too much, Miles will be able to catch them, anyways he is both emotional support cat and also spare mouse hunter. You grab the pipette, and prepare the solution that will help feed the mice for their journey to the surface of Mars. Suddenly, the lights go out. 
+        </p>
+
+        <p style="color:brown" >
+          The success of the mission, and the future of the Mars exploration colony rests on your shoulders. You can't let this mission fail.
+        </p>
+        <h5 class="subheading">Your task, if you choose to accept it</h5>
+        
+        <ol>
+            <li>Turn the power on</li>
+            <li>Check the security camera</li>
+            <li>Make a decision regarding the culprit</li>
+        </ol>
+                </div>
+            </div>
+      
+        
+        </div>
+    </section>
+    
+    <section style="margin-left: 100px;">
+        <div class="container">
+        
+        
+
+    <form action="game.html" >
+            <p class="subheading">Select your main character:</p>
+
+                <input type="radio" id="o1" name="character" value="crazy">
+                <label for="o1">70 year old, slightly eccentric, life long researcher named "Roger"</label>
+            <br> 
+                <input type="radio" id="o2" name="character" value="normal">
+                <label for="o2">27 year old, Ryan Gosling look a like, science teacher turned astronaut named "Ryland"</label>
+           <br>
+            
+            <input type="radio" id="o3" name="character" value="baby">
+            <label for="o3">13 year old, scientific protege, with a degree from MIT already, named "Zane"</label>
+            <br>
+            <br>
+            <p><label for="difficulty">Select your difficulty</label>
+           
+            
+                <select class="form-select" aria-label="Default select example" name="difficulty" id="difficulty" style="width: 50%;">
+                <option selected>Pick one...</option>
+                <option value="hard">hard</option>
+                <option value="med">medium</option>
+                <option value="easy">easy</option>
+            </select></p>
+            
+            <p><label for="age">What is your age?</label>  
+            <input type="number" name="age" id="age" placeholder="5">   </p>
+           
+            <p><label for="donation">Add an optional donation to play</label>  
+            <input class="form-control" style="width: 25%;" aria-label="default input example" type="number" name="donation" id="donation" placeholder="$500"> </p>
+            
+            <p><input type="submit" class="btn btn-success" value="Start the game"></p>
+
+
+            </form>
+</div>
+    </section>
+
+    </main>
+    <footer>
+
+    </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+</body>
+</html>

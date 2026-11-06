@@ -1,0 +1,46 @@
+body {
+    background-color:darkseagreen;
+}
+
+.subheading {
+    background-color:lightgray;
+    text-align: center;
+    letter-spacing:0.1em;
+    border: 2px black dotted;
+    margin: 50px;
+    padding: 10px;
+    
+
+
+   
+}
+
+.heading {
+    color: darkslategray;
+    background-color:grey;
+    border-radius:20%;
+    text-align: center;
+    letter-spacing:0.2em;
+    border: 5px black double;
+    margin:40px;
+    padding:10px;
+}
+
+.card {
+    background-color: lightgray;
+    padding:30px;
+    width:250px;
+    margin: 10px;
+    border:2px dashed black;
+    display: inline-block;
+    height:200px;
+    vertical-align: top;
+
+}
+
+#health-display{
+    color: greenyellow;
+    font-weight: bold;
+    font-size: 1.5em;
+    text-decoration: underline;
+}
